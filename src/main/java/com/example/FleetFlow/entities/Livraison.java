@@ -1,0 +1,37 @@
+package com.example.FleetFlow.entities;
+
+import com.example.FleetFlow.enums.StatutLivraison;
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = "livraisons")
+@Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
+public class Livraison {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    private LocalDateTime dateLivraison;
+    private String adresseDepart;
+    private String adressseDestination;
+
+    @Enumerated(EnumType.STRING)
+    private StatutLivraison statut;
+
+    @ManyToOne
+    @JoinColumn(name = "chauffeur_id")
+    private Chauffeur chauffeur;
+
+//    @ManyToOne
+//    @JoinColumn(name = "vehicule_id")
+//    private Vehicule vehicule;
+//
+//    @ManyToOne
+//    @JoinColumn(name = "client_id", nullable = false)
+//    private Client client;
+
+
+}
