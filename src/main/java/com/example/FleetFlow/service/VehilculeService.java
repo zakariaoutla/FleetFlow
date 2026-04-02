@@ -47,7 +47,7 @@ public class VehilculeService {
     }
 
     public List<VehiculeDTO> findByStatut(String status){
-        return vehiculeRepository.findByStatut(status);
+        return vehiculeRepository.findByStatus(status);
     }
 
     public List<VehiculeDTO> findByCapaciteGreaterThan(int capacite){
