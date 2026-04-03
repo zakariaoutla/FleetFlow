@@ -22,7 +22,7 @@ public class ClientService {
 
     public ClientDTO save(Client client){
         Client c = clientRepository.save(client);
-        return clientMapper.toDTO(client);
+        return clientMapper.toDTO(c);
 
     }
 
