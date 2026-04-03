@@ -1,51 +1,23 @@
 package com.example.FleetFlow.dto;
 
+import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 
 public class VehiculeDTO {
-    private long id;
+    @NotBlank
     private String matricule;
+    @NotBlank
     private String type;
+    @NotBlank
     private int capacite;
+    @NotBlank
     private String status;
-
-    public long getId() {
-        return id;
-    }
-
-    public String getMatricule() {
-        return matricule;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public int getCapacite() {
-        return capacite;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public void setMatricule(String matricule) {
-        this.matricule = matricule;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public void setCapacite(int capacite) {
-        this.capacite = capacite;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
 }

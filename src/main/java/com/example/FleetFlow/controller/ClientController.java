@@ -4,6 +4,7 @@ package com.example.FleetFlow.controller;
 import com.example.FleetFlow.Models.Client;
 import com.example.FleetFlow.dto.ClientDTO;
 import com.example.FleetFlow.service.ClientService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +19,7 @@ public class ClientController {
 
 
     @PostMapping
-    public ClientDTO save(@RequestBody Client client){
+    public ClientDTO save(@Valid @RequestBody Client client){
        return clientService.save(client);
     }
 
@@ -33,7 +34,7 @@ public class ClientController {
     }
 
     @PutMapping("{id}")
-    public ClientDTO update(@PathVariable long id, @RequestBody ClientDTO client){
+    public ClientDTO update(@Valid @PathVariable long id, @RequestBody ClientDTO client){
 
         return clientService.update(id, client);
 

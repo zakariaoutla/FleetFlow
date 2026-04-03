@@ -4,6 +4,7 @@ package com.example.FleetFlow.controller;
 import com.example.FleetFlow.Models.Vehicule;
 import com.example.FleetFlow.dto.VehiculeDTO;
 import com.example.FleetFlow.service.VehilculeService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +18,7 @@ public class VehiculeController {
     VehilculeService vehilculeService;
 
    @PostMapping
-    public VehiculeDTO save(@RequestBody Vehicule vehicule){
+    public VehiculeDTO save(@Valid @RequestBody Vehicule vehicule){
        return vehilculeService.save(vehicule);
    }
 
@@ -31,7 +32,7 @@ public class VehiculeController {
        vehilculeService.delete(id);
    }
    @PutMapping("{id}")
-    public VehiculeDTO update(@PathVariable long id,@RequestBody VehiculeDTO vehicule){
+    public VehiculeDTO update(@Valid @PathVariable long id,@RequestBody VehiculeDTO vehicule){
 
        return vehilculeService.update(id, vehicule);
    }

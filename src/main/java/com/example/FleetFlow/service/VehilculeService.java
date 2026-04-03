@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class VehilculeService {
@@ -46,11 +47,11 @@ public class VehilculeService {
         return vehilculeMapper.toDTO(update);
     }
 
-    public List<VehiculeDTO> findByStatut(String status){
-        return vehiculeRepository.findByStatus(status);
+    public List<VehiculeDTO> findByStatut(String statut) {
+        return vehilculeMapper.todtolist(vehiculeRepository.findByStatus(statut)) ;
     }
-
     public List<VehiculeDTO> findByCapaciteGreaterThan(int capacite){
-        return vehiculeRepository.findByCapaciteGreaterThan(capacite);
+        return vehilculeMapper.todtolist(vehiculeRepository.findByCapaciteGreaterThan(capacite));
+
     }
 }
