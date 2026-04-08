@@ -28,7 +28,7 @@ public class VehiculeController {
    }
 
    @DeleteMapping("{id}")
-    public void delete(@PathVariable long id){
+    public void delete(@Valid @PathVariable long id){
        vehilculeService.delete(id);
    }
    @PutMapping("{id}")

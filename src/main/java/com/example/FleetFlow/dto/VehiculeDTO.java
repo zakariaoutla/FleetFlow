@@ -1,6 +1,7 @@
 package com.example.FleetFlow.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,12 +13,12 @@ import lombok.Setter;
 @Setter
 
 public class VehiculeDTO {
-    @NotBlank
+    @NotBlank(message = "Le matricule est obligatoire")
     private String matricule;
-    @NotBlank
+    @NotBlank(message = "Le type de vehicule est obligatoire")
     private String type;
-    @NotBlank
+    @Positive(message = "La capacite doit etre strictement positive")
     private int capacite;
-    @NotBlank
+    @NotBlank(message = "Le status est obligatoire")
     private String status;
 }
