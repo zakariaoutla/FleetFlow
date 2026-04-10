@@ -5,6 +5,7 @@ import com.example.FleetFlow.dto.LivraisonDTO;
 import com.example.FleetFlow.enums.StatutLivraison;
 import com.example.FleetFlow.mapper.LivraisonMapper;
 import com.example.FleetFlow.service.LivraisonService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,7 @@ public class LivraisonController {
     private final LivraisonMapper livraisonMapper;
 
     @PostMapping
-    public ResponseEntity<LivraisonDTO> creerLivraison(@RequestBody LivraisonDTO livraisonDTO) {
+    public ResponseEntity<LivraisonDTO> creerLivraison(@Valid @RequestBody LivraisonDTO livraisonDTO) {
         Livraison livraison = livraisonMapper.toEntity(livraisonDTO);
         Livraison savedLivraison = livraisonService.creerLivraison(livraison);
         return new ResponseEntity<>(livraisonMapper.toDto(savedLivraison), HttpStatus.CREATED);
@@ -30,6 +31,7 @@ public class LivraisonController {
 
     @PutMapping("/{id}/assigner")
     public ResponseEntity<LivraisonDTO> assignerChauffeurEtVehicule(
+            @Valid
             @PathVariable int id,
             @RequestParam int chauffeurId,
             @RequestParam Long vehiculeId) {
@@ -40,6 +42,7 @@ public class LivraisonController {
 
     @PatchMapping("/{id}/statut")
     public ResponseEntity<LivraisonDTO> modifierStatut(
+            @Valid
             @PathVariable int id,
             @RequestParam StatutLivraison statut) {
 

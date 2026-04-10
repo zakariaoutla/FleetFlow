@@ -7,7 +7,6 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "livraisons")
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
 public class Livraison {
     @Id

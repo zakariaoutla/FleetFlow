@@ -18,9 +18,9 @@ public class ClientDTO {
     @Email
     @NotBlank(message = "Email is required")
     private String email;
-    @NotBlank
+    @NotBlank(message = "telephone is required")
     @Size(min = 10, max = 10, message = "Phone must be 10 digits")
     private String telephone;
-    @NotBlank
+    @NotBlank(message = "ville is required")
     private String ville;
 }

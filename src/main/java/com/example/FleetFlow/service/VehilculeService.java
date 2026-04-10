@@ -4,6 +4,7 @@ package com.example.FleetFlow.service;
 import com.example.FleetFlow.Models.Vehicule;
 import com.example.FleetFlow.dto.VehiculeDTO;
 import com.example.FleetFlow.mapper.VehilculeMapper;
+import com.example.FleetFlow.repository.LivraisonRepository;
 import com.example.FleetFlow.repository.VehiculeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,9 @@ public class VehilculeService {
     @Autowired
     VehilculeMapper vehilculeMapper;
 
+    @Autowired
+    private LivraisonRepository livraisonRepository;
+
     public VehiculeDTO save(Vehicule vehicule){
         Vehicule v = vehiculeRepository.save(vehicule);
         return vehilculeMapper.toDTO(v);
@@ -27,11 +31,6 @@ public class VehilculeService {
 
     public void delete(long id){
         vehiculeRepository.deleteById(id);
-    }
-
-    public List<VehiculeDTO> getAllVehicule(){
-        List<VehiculeDTO> vehicules = vehiculeRepository.findAll().stream().map(vehilculeMapper::toDTO).toList();
-        return vehicules;
     }
 
     public VehiculeDTO update(long id, VehiculeDTO vehicule){
@@ -53,5 +52,15 @@ public class VehilculeService {
     public List<VehiculeDTO> findByCapaciteGreaterThan(int capacite){
         return vehilculeMapper.todtolist(vehiculeRepository.findByCapaciteGreaterThan(capacite));
 
+    }
+
+    public List<VehiculeDTO> getAllvicule(){
+        List<VehiculeDTO>  allVeculte = vehilculeMapper.todtolist(vehiculeRepository.findAll());
+        allVeculte.forEach(v->{
+            long total = livraisonRepository.countAllByVehicule(v.getId());
+            v.setTotalcount(total);
+        });
+
+        return allVeculte;
     }
 }

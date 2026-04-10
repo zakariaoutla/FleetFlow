@@ -24,7 +24,7 @@ public class VehiculeController {
 
    @GetMapping
     public List<VehiculeDTO> getAllVehilcule(){
-       return vehilculeService.getAllVehicule();
+       return vehilculeService.getAllvicule();
    }
 
    @DeleteMapping("{id}")

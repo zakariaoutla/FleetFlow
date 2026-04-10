@@ -18,4 +18,7 @@ public interface LivraisonRepository extends JpaRepository<Livraison , Integer> 
 
     @Query("SELECT l FROM Livraison l WHERE l.adressseDestination LIKE %:ville%")
     List<Livraison> findByVilleDestination(@Param("ville") String ville);
+
+    @Query(value = "SELECT count(*) FROM Livraison l where l.vehicules_id = :id", nativeQuery = true)
+    long countAllByVehicule(long id);
 }

@@ -4,6 +4,7 @@ import com.example.FleetFlow.Models.Chauffeur;
 import com.example.FleetFlow.dto.ChauffeurDTO;
 import com.example.FleetFlow.mapper.ChauffeurMapper;
 import com.example.FleetFlow.service.ChauffeurService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,14 +22,14 @@ public class ChauffeurController {
     private final ChauffeurMapper chauffeurMapper;
 
     @PostMapping
-    public ResponseEntity<ChauffeurDTO> ajouterChauffeur(@RequestBody ChauffeurDTO chauffeurDTO) {
+    public ResponseEntity<ChauffeurDTO> ajouterChauffeur(@Valid @RequestBody ChauffeurDTO chauffeurDTO) {
         Chauffeur chauffeur = chauffeurMapper.toEntity(chauffeurDTO);
         Chauffeur savedChauffeur = chauffeurService.ajouterChauffeur(chauffeur);
         return new ResponseEntity<>(chauffeurMapper.toDto(savedChauffeur), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ChauffeurDTO> modifierChauffeur(@PathVariable int id, @RequestBody ChauffeurDTO chauffeurDTO) {
+    public ResponseEntity<ChauffeurDTO> modifierChauffeur(@Valid @PathVariable int id, @RequestBody ChauffeurDTO chauffeurDTO) {
         Chauffeur chauffeurDetails = chauffeurMapper.toEntity(chauffeurDTO);
         Chauffeur updatedChauffeur = chauffeurService.modifierChauffeur(id, chauffeurDetails);
         return ResponseEntity.ok(chauffeurMapper.toDto(updatedChauffeur));

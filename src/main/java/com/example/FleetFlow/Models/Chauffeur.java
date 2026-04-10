@@ -5,7 +5,6 @@ import lombok.*;
 import java.util.List;
 
 @Entity
-@Table(name = "chauffeurs")
 @Getter
 @Setter
 @NoArgsConstructor

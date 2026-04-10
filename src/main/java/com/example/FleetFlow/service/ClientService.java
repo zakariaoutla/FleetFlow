@@ -5,6 +5,7 @@ import com.example.FleetFlow.Models.Client;
 import com.example.FleetFlow.dto.ClientDTO;
 import com.example.FleetFlow.mapper.ClientMapper;
 import com.example.FleetFlow.repository.ClientRepository;
+import com.example.FleetFlow.repository.LivraisonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,8 @@ public class ClientService {
 
     @Autowired
     ClientMapper clientMapper;
+    @Autowired
+    private LivraisonRepository livraisonRepository;
 
     public ClientDTO save(Client client){
         Client c = clientRepository.save(client);
@@ -49,4 +52,8 @@ public class ClientService {
         return clientMapper.toDTO(update);
 
     }
+
+
+
+
 }
