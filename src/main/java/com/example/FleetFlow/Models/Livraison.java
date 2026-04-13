@@ -7,15 +7,19 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "livraison")
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
 public class Livraison {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
 
+    @Column(name = "dateLivraison")
     private LocalDateTime dateLivraison;
+    @Column(name = "adresseDepart")
     private String adresseDepart;
-    private String adressseDestination;
+    @Column(name = "adresseDestination")
+    private String adresseDestination;
 
     @Enumerated(EnumType.STRING)
     private StatutLivraison statut;
@@ -25,10 +29,10 @@ public class Livraison {
     private Chauffeur chauffeur;
 
     @ManyToOne
-    @JoinColumn(name = "vehicules_id")
+    @JoinColumn(name = "vehicule_id")
     private Vehicule vehicule;
 
     @ManyToOne
-    @JoinColumn(name = "clients_id" , nullable = false)
+    @JoinColumn(name = "client_id")
     private Client client;
 }

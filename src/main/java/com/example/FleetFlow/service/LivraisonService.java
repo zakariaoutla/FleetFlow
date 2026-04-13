@@ -28,7 +28,7 @@ public class LivraisonService {
     }
 
     @Transactional
-    public Livraison assignerChauffeurEtVehicule(int livraisonId, int chauffeurId, Long vehiculeId) {
+    public Livraison assignerChauffeurEtVehicule(long livraisonId, long chauffeurId, long vehiculeId) {
         Livraison livraison = livraisonRepository.findById(livraisonId)
                 .orElseThrow(() -> new RuntimeException("Livraison introuvable"));
 
@@ -36,13 +36,13 @@ public class LivraisonService {
                 .orElseThrow(() -> new RuntimeException("Chauffeur introuvable"));
 
         Vehicule vehicule = vehiculeRepository.findById(vehiculeId)
-                .orElseThrow(() -> new RuntimeException("Véhicule introuvable"));
+                .orElseThrow(() -> new RuntimeException("Vehicule introuvable"));
 
-        if (!chauffeur.getDisponible()) {
-            throw new RuntimeException("Le chauffeur sélectionné n'est pas disponible.");
+        if (!Boolean.TRUE.equals(chauffeur.getDisponible())) {
+            throw new RuntimeException("Le chauffeur selectionne n'est pas disponible.");
         }
-        if (vehicule.getStatus().equals(String.valueOf(StatutVehicule.DISPONIBLE))) {
-            throw new RuntimeException("Le véhicule sélectionné n'est pas disponible.");
+        if (vehicule.getStatus() != StatutVehicule.DISPONIBLE) {
+            throw new RuntimeException("Le vehicule selectionne n'est pas disponible.");
         }
 
         livraison.setChauffeur(chauffeur);
@@ -50,7 +50,7 @@ public class LivraisonService {
         livraison.setStatut(StatutLivraison.EN_COURS);
 
         chauffeur.setDisponible(false);
-        vehicule.setStatus(String.valueOf(StatutVehicule.EN_LIVRAISON));
+        vehicule.setStatus(StatutVehicule.EN_LIVRAISON);
 
         chauffeurRepository.save(chauffeur);
         vehiculeRepository.save(vehicule);
@@ -58,7 +58,7 @@ public class LivraisonService {
         return livraisonRepository.save(livraison);
     }
 
-    public Livraison modifierStatutLivraison(int id, StatutLivraison nouveauStatut) {
+    public Livraison modifierStatutLivraison(long id, StatutLivraison nouveauStatut) {
         Livraison livraison = livraisonRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Livraison introuvable"));
 
@@ -70,7 +70,7 @@ public class LivraisonService {
                 chauffeurRepository.save(livraison.getChauffeur());
             }
             if (livraison.getVehicule() != null) {
-                livraison.getVehicule().setStatus(String.valueOf(StatutVehicule.DISPONIBLE));
+                livraison.getVehicule().setStatus(StatutVehicule.DISPONIBLE);
                 vehiculeRepository.save(livraison.getVehicule());
             }
         }

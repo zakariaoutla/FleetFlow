@@ -1,66 +1,65 @@
 package com.example.FleetFlow.service;
 
-
 import com.example.FleetFlow.Models.Vehicule;
 import com.example.FleetFlow.dto.VehiculeDTO;
+import com.example.FleetFlow.enums.StatutVehicule;
 import com.example.FleetFlow.mapper.VehilculeMapper;
 import com.example.FleetFlow.repository.LivraisonRepository;
 import com.example.FleetFlow.repository.VehiculeRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Locale;
 
 @Service
+@RequiredArgsConstructor
 public class VehilculeService {
 
-    @Autowired
-    VehiculeRepository vehiculeRepository;
+    private final VehiculeRepository vehiculeRepository;
+    private final VehilculeMapper vehilculeMapper;
+    private final LivraisonRepository livraisonRepository;
 
-    @Autowired
-    VehilculeMapper vehilculeMapper;
+    public VehiculeDTO save(VehiculeDTO vehicule) {
+        Vehicule entity = new Vehicule();
+        entity.setMatricule(vehicule.getMatricule());
+        entity.setType(vehicule.getType());
+        entity.setCapacite(vehicule.getCapacite());
+        entity.setStatus(vehicule.getStatus());
 
-    @Autowired
-    private LivraisonRepository livraisonRepository;
-
-    public VehiculeDTO save(Vehicule vehicule){
-        Vehicule v = vehiculeRepository.save(vehicule);
-        return vehilculeMapper.toDTO(v);
+        Vehicule saved = vehiculeRepository.save(entity);
+        return vehilculeMapper.toDTO(saved);
     }
 
-    public void delete(long id){
+    public void delete(long id) {
         vehiculeRepository.deleteById(id);
     }
 
-    public VehiculeDTO update(long id, VehiculeDTO vehicule){
-        Vehicule v = vehiculeRepository.findById(id).orElse(null);
+    public VehiculeDTO update(long id, VehiculeDTO vehicule) {
+        Vehicule existing = vehiculeRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Vehicule introuvable"));
 
-        v.setMatricule(vehicule.getMatricule());
-        v.setCapacite(vehicule.getCapacite());
-        v.setStatus(vehicule.getStatus());
-        v.setType(vehicule.getType());
+        existing.setMatricule(vehicule.getMatricule());
+        existing.setCapacite(vehicule.getCapacite());
+        existing.setStatus(vehicule.getStatus());
+        existing.setType(vehicule.getType());
 
-        Vehicule update = vehiculeRepository.save(v);
-
-        return vehilculeMapper.toDTO(update);
+        Vehicule updated = vehiculeRepository.save(existing);
+        return vehilculeMapper.toDTO(updated);
     }
 
     public List<VehiculeDTO> findByStatut(String statut) {
-        return vehilculeMapper.todtolist(vehiculeRepository.findByStatus(statut)) ;
+        StatutVehicule parsed = StatutVehicule.valueOf(statut.toUpperCase(Locale.ROOT));
+        return vehilculeMapper.todtolist(vehiculeRepository.findByStatus(parsed));
     }
-    public List<VehiculeDTO> findByCapaciteGreaterThan(int capacite){
+
+    public List<VehiculeDTO> findByCapaciteGreaterThan(int capacite) {
         return vehilculeMapper.todtolist(vehiculeRepository.findByCapaciteGreaterThan(capacite));
-
     }
 
-    public List<VehiculeDTO> getAllvicule(){
-        List<VehiculeDTO>  allVeculte = vehilculeMapper.todtolist(vehiculeRepository.findAll());
-        allVeculte.forEach(v->{
-            long total = livraisonRepository.countAllByVehicule(v.getId());
-            v.setTotalcount(total);
-        });
-
-        return allVeculte;
+    public List<VehiculeDTO> getAllvicule() {
+        List<VehiculeDTO> vehicules = vehilculeMapper.todtolist(vehiculeRepository.findAll());
+        vehicules.forEach(v -> v.setTotalcount(livraisonRepository.countAllByVehicule(v.getId())));
+        return vehicules;
     }
 }

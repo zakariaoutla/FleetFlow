@@ -29,14 +29,14 @@ public class ChauffeurController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ChauffeurDTO> modifierChauffeur(@Valid @PathVariable int id, @RequestBody ChauffeurDTO chauffeurDTO) {
+    public ResponseEntity<ChauffeurDTO> modifierChauffeur(@PathVariable long id, @Valid @RequestBody ChauffeurDTO chauffeurDTO) {
         Chauffeur chauffeurDetails = chauffeurMapper.toEntity(chauffeurDTO);
         Chauffeur updatedChauffeur = chauffeurService.modifierChauffeur(id, chauffeurDetails);
         return ResponseEntity.ok(chauffeurMapper.toDto(updatedChauffeur));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> supprimerChauffeur(@PathVariable int id) {
+    public ResponseEntity<Void> supprimerChauffeur(@PathVariable long id) {
         chauffeurService.supprimerChauffeur(id);
         return ResponseEntity.noContent().build();
     }

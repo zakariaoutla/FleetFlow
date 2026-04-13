@@ -1,36 +1,36 @@
 CREATE TABLE client(
-    id long PRIMARY KEY AUTO_INCREMENT,
-    nom varchar(20) NOT NULL,
-    email varchar(50) UNIQUE NOT NULL,
-    telephone varchar(10) NOT NULL,
-    ville varchar(10) NOT NULL
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    nom VARCHAR(20) NOT NULL,
+    email VARCHAR(50) UNIQUE NOT NULL,
+    telephone VARCHAR(10) NOT NULL,
+    ville VARCHAR(10) NOT NULL
 );
 
-CREATE table vehicule(
-    id long primary key  AUTO_INCREMENT,
+CREATE TABLE vehicule(
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
     capacite INT NOT NULL,
-    matricule varchar(40) UNIQUE NOT NULL ,
-    status enum('DISPONIBLE', 'EN_LIVRAISON', 'MAINTENANCE') DEFAULT 'DISPONIBLE' NOT NULL,
-    type varchar(20) NOT NULL
+    matricule VARCHAR(40) UNIQUE NOT NULL,
+    status ENUM('DISPONIBLE', 'EN_LIVRAISON', 'MAINTENANCE') DEFAULT 'DISPONIBLE' NOT NULL,
+    type VARCHAR(20) NOT NULL
 );
 
 CREATE TABLE chauffeur(
-    id long primary key AUTO_INCREMENT,
-    nom varchar(20) NOT NULL ,
-    telephone varchar(10) UNIQUE NOT NULL ,
-    permisType varchar(30) NOT NULL ,
-    disponible boolean DEFAULT 'true'
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    nom VARCHAR(20) NOT NULL,
+    telephone VARCHAR(10) UNIQUE NOT NULL,
+    permis_type VARCHAR(30) NOT NULL,
+    disponible BOOLEAN
 );
 
-CREATE table livraison(
-    id long primary key AUTO_INCREMENT,
-    dateLivraison DATE not null ,
-    adresseDepart varchar(30) not null ,
-    adresseDestination varchar(30) not null,
-    statut enum ('ENATTENTE', 'ENCOURS', 'LIVREE') DEFAULT 'ENATTENTE' ,
-    client_id long,
-    vehicule_id long,
-    chauffeur_id long
+CREATE TABLE livraison(
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    date_livraison DATETIME NOT NULL,
+    adresse_depart VARCHAR(30) NOT NULL,
+    adresse_destination VARCHAR(30) NOT NULL,
+    statut ENUM('EN_ATTENTE', 'EN_COURS', 'LIVREE') DEFAULT 'EN_ATTENTE',
+    client_id BIGINT,
+    vehicule_id BIGINT,
+    chauffeur_id BIGINT
 );
 
 

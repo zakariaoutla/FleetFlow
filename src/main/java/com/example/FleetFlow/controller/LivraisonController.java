@@ -31,10 +31,9 @@ public class LivraisonController {
 
     @PutMapping("/{id}/assigner")
     public ResponseEntity<LivraisonDTO> assignerChauffeurEtVehicule(
-            @Valid
-            @PathVariable int id,
-            @RequestParam int chauffeurId,
-            @RequestParam Long vehiculeId) {
+            @PathVariable long id,
+            @RequestParam long chauffeurId,
+            @RequestParam long vehiculeId) {
 
         Livraison livraison = livraisonService.assignerChauffeurEtVehicule(id, chauffeurId, vehiculeId);
         return ResponseEntity.ok(livraisonMapper.toDto(livraison));
@@ -42,8 +41,7 @@ public class LivraisonController {
 
     @PatchMapping("/{id}/statut")
     public ResponseEntity<LivraisonDTO> modifierStatut(
-            @Valid
-            @PathVariable int id,
+            @PathVariable long id,
             @RequestParam StatutLivraison statut) {
 
         Livraison livraison = livraisonService.modifierStatutLivraison(id, statut);

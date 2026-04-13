@@ -8,6 +8,7 @@ import lombok.*;
 @Getter
 @Setter
 @Entity
+@Table(name = "client")
 @AllArgsConstructor
 public class Client {
     @Id
@@ -17,4 +18,11 @@ public class Client {
     private String email;
     private String telephone;
     private String ville;
+
+    public Client(String nom, String email, String ville, String telephone) {
+        this.nom = nom;
+        this.email = email;
+        this.ville = ville;
+        this.telephone = telephone;
+    }
 }

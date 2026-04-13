@@ -1,6 +1,7 @@
 package com.example.FleetFlow.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
@@ -15,6 +16,7 @@ public class ChauffeurDTO {
     private String telephone;
     @NotBlank
     private String permisType;
-    @NotBlank
+
+    @NotNull
     private Boolean disponible;
 }
