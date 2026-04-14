@@ -7,8 +7,8 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "livraison")
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
+@Table(name = "livraison")
 public class Livraison {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,6 +33,6 @@ public class Livraison {
     private Vehicule vehicule;
 
     @ManyToOne
-    @JoinColumn(name = "client_id")
+    @JoinColumn(name = "client_id" , nullable = false)
     private Client client;
 }

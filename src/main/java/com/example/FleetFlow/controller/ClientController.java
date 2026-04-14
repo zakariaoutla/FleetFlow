@@ -26,7 +26,7 @@ public class ClientController {
     }
 
     @DeleteMapping("{id}")
-    public void getClientById(@PathVariable long id){
+    public void getClientById(@Valid @PathVariable long id){
         clientService.delete(id);
     }
 

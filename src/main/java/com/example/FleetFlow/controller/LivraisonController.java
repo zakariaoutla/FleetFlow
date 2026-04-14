@@ -23,7 +23,7 @@ public class LivraisonController {
     private final LivraisonMapper livraisonMapper;
 
     @PostMapping
-    public ResponseEntity<LivraisonDTO> creerLivraison(@Valid @RequestBody LivraisonDTO livraisonDTO) {
+    public ResponseEntity<LivraisonDTO> creerLivraison(@Valid  @RequestBody LivraisonDTO livraisonDTO) {
         Livraison livraison = livraisonMapper.toEntity(livraisonDTO);
         Livraison savedLivraison = livraisonService.creerLivraison(livraison);
         return new ResponseEntity<>(livraisonMapper.toDto(savedLivraison), HttpStatus.CREATED);
@@ -31,9 +31,10 @@ public class LivraisonController {
 
     @PutMapping("/{id}/assigner")
     public ResponseEntity<LivraisonDTO> assignerChauffeurEtVehicule(
-            @PathVariable long id,
-            @RequestParam long chauffeurId,
-            @RequestParam long vehiculeId) {
+            @Valid
+            @PathVariable int id,
+            @RequestParam int chauffeurId,
+            @RequestParam Long vehiculeId) {
 
         Livraison livraison = livraisonService.assignerChauffeurEtVehicule(id, chauffeurId, vehiculeId);
         return ResponseEntity.ok(livraisonMapper.toDto(livraison));
@@ -41,7 +42,8 @@ public class LivraisonController {
 
     @PatchMapping("/{id}/statut")
     public ResponseEntity<LivraisonDTO> modifierStatut(
-            @PathVariable long id,
+            @Valid
+            @PathVariable int id,
             @RequestParam StatutLivraison statut) {
 
         Livraison livraison = livraisonService.modifierStatutLivraison(id, statut);

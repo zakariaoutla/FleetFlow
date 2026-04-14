@@ -9,14 +9,13 @@ import lombok.Data;
 public class ChauffeurDTO {
 
     private Long id;
-    @NotBlank
+    @NotBlank(message = "Le nom du chauffeur est obligatoire")
     private String nom;
-    @NotBlank
-    @Size(min = 10, max = 10)
+    @NotBlank(message = "Le telephone de chauffeur est obligatoire")
+    @Size(min = 10 , max = 12 , message = "Le format de telephone est incorrect")
     private String telephone;
-    @NotBlank
+    @NotBlank(message = "Le type de permis est obligatoire")
     private String permisType;
-
-    @NotNull
+    @NotBlank(message = "Le Disponible de permis est obligatoire")
     private Boolean disponible;
 }

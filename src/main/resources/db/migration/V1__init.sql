@@ -1,36 +1,34 @@
-CREATE TABLE client(
-    id BIGINT PRIMARY KEY AUTO_INCREMENT,
-    nom VARCHAR(20) NOT NULL,
-    email VARCHAR(50) UNIQUE NOT NULL,
-    telephone VARCHAR(10) NOT NULL,
-    ville VARCHAR(10) NOT NULL
+CREATE TABLE client (
+                        id BIGINT AUTO_INCREMENT PRIMARY KEY,
+                        nom VARCHAR(100) NOT NULL,
+                        email VARCHAR(150) UNIQUE NOT NULL,
+                        telephone VARCHAR(15) UNIQUE NOT NULL,
+                        ville VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE vehicule(
-    id BIGINT PRIMARY KEY AUTO_INCREMENT,
-    capacite INT NOT NULL,
-    matricule VARCHAR(40) UNIQUE NOT NULL,
-    status ENUM('DISPONIBLE', 'EN_LIVRAISON', 'MAINTENANCE') DEFAULT 'DISPONIBLE' NOT NULL,
-    type VARCHAR(20) NOT NULL
+CREATE TABLE vehicule (
+                          id BIGINT AUTO_INCREMENT PRIMARY KEY,
+                          matricule VARCHAR(50) UNIQUE NOT NULL,
+                          type VARCHAR(50) NOT NULL,
+                          capacite INT NOT NULL,
+                          status VARCHAR(50) NOT NULL
 );
 
-CREATE TABLE chauffeur(
-    id BIGINT PRIMARY KEY AUTO_INCREMENT,
-    nom VARCHAR(20) NOT NULL,
-    telephone VARCHAR(10) UNIQUE NOT NULL,
-    permis_type VARCHAR(30) NOT NULL,
-    disponible BOOLEAN
+CREATE TABLE chauffeur (
+                           id BIGINT AUTO_INCREMENT PRIMARY KEY,
+                           nom VARCHAR(100) NOT NULL,
+                           telephone VARCHAR(15) UNIQUE NOT NULL,
+                           permis_type VARCHAR(20) NOT NULL,
+                           disponible BOOLEAN NOT NULL
 );
 
-CREATE TABLE livraison(
-    id BIGINT PRIMARY KEY AUTO_INCREMENT,
-    date_livraison DATETIME NOT NULL,
-    adresse_depart VARCHAR(30) NOT NULL,
-    adresse_destination VARCHAR(30) NOT NULL,
-    statut ENUM('EN_ATTENTE', 'EN_COURS', 'LIVREE') DEFAULT 'EN_ATTENTE',
-    client_id BIGINT,
-    vehicule_id BIGINT,
-    chauffeur_id BIGINT
+CREATE TABLE livraison (
+                           id BIGINT AUTO_INCREMENT PRIMARY KEY,
+                           date_livraison DATE NOT NULL,
+                           adresse_depart VARCHAR(100) NOT NULL,
+                           adresse_destination VARCHAR(100) NOT NULL,
+                           client_id BIGINT,
+                           vehicule_id BIGINT,
+                           chauffeur_id BIGINT,
+                           statut VARCHAR(50)
 );
-
-
