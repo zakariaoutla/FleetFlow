@@ -24,7 +24,7 @@ CREATE TABLE chauffeur (
 
 CREATE TABLE livraison (
                            id BIGINT AUTO_INCREMENT PRIMARY KEY,
-                           date_livraison DATE NOT NULL,
+                           date_livraison DATETIME NOT NULL,
                            adresse_depart VARCHAR(100) NOT NULL,
                            adresse_destination VARCHAR(100) NOT NULL,
                            client_id BIGINT,

@@ -19,10 +19,10 @@ public class VehiculeController {
        return vehilculeService.save(vehicule);
    }
 
-   @GetMapping
-    public List<VehiculeDTO> getAllVehilcule(){
-       return vehilculeService.getAllvicule();
-   }
+//   @GetMapping
+//    public List<VehiculeDTO> getAllVehilcule(){
+//       return vehilculeService.getAllvicule();
+//   }
 
    @DeleteMapping("{id}")
     public void delete(@Valid @PathVariable long id){

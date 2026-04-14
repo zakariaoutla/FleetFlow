@@ -59,9 +59,9 @@ public class LivraisonService {
     }
 
     public Livraison assigneVehiculeEtChauffeur(int idLivraison , int idChauffeur, int idVehicule){
-        Livraison livraison = livraisonRepository.findById(idLivraison)
+        Livraison livraison = livraisonRepository.findById((long)idLivraison)
                 .orElseThrow(() -> new RuntimeException("Livraison introuvable"));
-        Chauffeur chauffeur = chauffeurRepository.findById(idChauffeur)
+        Chauffeur chauffeur = chauffeurRepository.findById((long)idChauffeur)
                 .orElseThrow(() -> new RuntimeException("Chauffeur introuvable"));
         Vehicule vehicule = vehiculeRepository.findById((long)idVehicule)
                 .orElseThrow(() -> new RuntimeException("Vehicule introuvable"));
@@ -73,7 +73,7 @@ public class LivraisonService {
     }
 
     public Livraison updateLivraisonStatus(int id , String status){
-        Livraison livraison = livraisonRepository.findById(id)
+        Livraison livraison = livraisonRepository.findById((long)id)
                 .orElseThrow(() -> new RuntimeException("Livraison introuvable"));
         livraison.setStatut(StatutLivraison.valueOf(status));
 
@@ -81,7 +81,7 @@ public class LivraisonService {
     }
 
     public Livraison modifierStatutLivraison(int id, StatutLivraison nouveauStatut) {
-        Livraison livraison = livraisonRepository.findById(id)
+        Livraison livraison = livraisonRepository.findById((long)id)
                 .orElseThrow(() -> new RuntimeException("Livraison introuvable"));
 
         livraison.setStatut(nouveauStatut);
