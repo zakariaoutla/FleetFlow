@@ -14,10 +14,10 @@ import java.util.List;
 public class Chauffeur {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
+    private long id;
     private String nom;
     private String telephone;
+    @Column(name = "permisType")
     private String permisType;
     private Boolean disponible;
 

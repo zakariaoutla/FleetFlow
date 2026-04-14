@@ -12,11 +12,14 @@ import java.time.LocalDateTime;
 public class Livraison {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
 
+    @Column(name = "dateLivraison")
     private LocalDateTime dateLivraison;
+    @Column(name = "adresseDepart")
     private String adresseDepart;
-    private String adressseDestination;
+    @Column(name = "adresseDestination")
+    private String adresseDestination;
 
     @Enumerated(EnumType.STRING)
     private StatutLivraison statut;

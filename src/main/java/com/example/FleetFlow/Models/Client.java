@@ -1,5 +1,6 @@
 package com.example.FleetFlow.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -7,8 +8,8 @@ import lombok.*;
 @Getter
 @Setter
 @Entity
-@AllArgsConstructor
 @Table(name = "client")
+@AllArgsConstructor
 public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,4 +18,11 @@ public class Client {
     private String email;
     private String telephone;
     private String ville;
+
+    public Client(String nom, String email, String ville, String telephone) {
+        this.nom = nom;
+        this.email = email;
+        this.ville = ville;
+        this.telephone = telephone;
+    }
 }

@@ -29,4 +29,5 @@ public class LivraisonDTO {
     @NotNull(message = "L'ID du véhicule est obligatoire")
     @Positive(message = "L'ID du véhicule doit être valide")
     private Long vehiculeId;
+
 }

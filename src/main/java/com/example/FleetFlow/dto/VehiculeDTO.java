@@ -1,5 +1,6 @@
 package com.example.FleetFlow.dto;
 
+import com.example.FleetFlow.enums.StatutVehicule;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
