@@ -18,9 +18,9 @@ public class ChauffeurService {
         return chauffeurRepository.save(chauffeur);
     }
 
-    public Chauffeur modifierChauffeur(int id, Chauffeur chauffeurDetails) {
+    public Chauffeur modifierChauffeur(long id, Chauffeur chauffeurDetails) {
         Chauffeur chauffeur = chauffeurRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Chauffeur non trouvé"));
+                .orElseThrow(() -> new RuntimeException("Chauffeur non trouve"));
 
         chauffeur.setNom(chauffeurDetails.getNom());
         chauffeur.setTelephone(chauffeurDetails.getTelephone());
@@ -29,7 +29,7 @@ public class ChauffeurService {
         return chauffeurRepository.save(chauffeur);
     }
 
-    public void supprimerChauffeur(int id) {
+    public void supprimerChauffeur(long id) {
         chauffeurRepository.deleteById(id);
     }
 

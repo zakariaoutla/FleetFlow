@@ -1,15 +1,16 @@
 package com.example.FleetFlow.Models;
 
+import com.example.FleetFlow.enums.StatutVehicule;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 
-@Getter
-@Setter
+@Data
 @Entity
+@Table(name = "vehicule")
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "vehicules")
 public class Vehicule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,6 +18,9 @@ public class Vehicule {
     private String matricule;
     private String type;
     private int capacite;
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private StatutVehicule status;
+
+
 
 }

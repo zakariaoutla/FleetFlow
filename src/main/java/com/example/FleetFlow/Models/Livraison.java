@@ -4,19 +4,24 @@ import com.example.FleetFlow.enums.StatutLivraison;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "livraisons")
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
+@Table(name = "livraison")
 public class Livraison {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
 
-    private LocalDateTime dateLivraison;
+    @Column(name = "date_livraison")
+    @Temporal(TemporalType.DATE)
+    private LocalDate dateLivraison;
+    @Column(name = "adresseDepart")
     private String adresseDepart;
-    private String adressseDestination;
+    @Column(name = "adresseDestination")
+    private String adresseDestination;
 
     @Enumerated(EnumType.STRING)
     private StatutLivraison statut;
@@ -26,10 +31,10 @@ public class Livraison {
     private Chauffeur chauffeur;
 
     @ManyToOne
-    @JoinColumn(name = "vehicules_id")
+    @JoinColumn(name = "vehicule_id")
     private Vehicule vehicule;
 
     @ManyToOne
-    @JoinColumn(name = "clients_id" , nullable = false)
+    @JoinColumn(name = "client_id" , nullable = false)
     private Client client;
 }

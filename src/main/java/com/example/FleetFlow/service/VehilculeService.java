@@ -1,57 +1,59 @@
 package com.example.FleetFlow.service;
 
-
 import com.example.FleetFlow.Models.Vehicule;
 import com.example.FleetFlow.dto.VehiculeDTO;
+import com.example.FleetFlow.enums.StatutVehicule;
 import com.example.FleetFlow.mapper.VehilculeMapper;
+import com.example.FleetFlow.repository.LivraisonRepository;
 import com.example.FleetFlow.repository.VehiculeRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Locale;
 
 @Service
+@RequiredArgsConstructor
 public class VehilculeService {
 
-    @Autowired
-    VehiculeRepository vehiculeRepository;
+    private final VehiculeRepository vehiculeRepository;
+    private final VehilculeMapper vehilculeMapper;
+    private final LivraisonRepository livraisonRepository;
 
-    @Autowired
-    VehilculeMapper vehilculeMapper;
+    public VehiculeDTO save(VehiculeDTO vehicule) {
+        Vehicule entity = new Vehicule();
+        entity.setMatricule(vehicule.getMatricule());
+        entity.setType(vehicule.getType());
+        entity.setCapacite(vehicule.getCapacite());
+        entity.setStatus(StatutVehicule.valueOf(String.valueOf(vehicule.getStatus())));
 
-    public VehiculeDTO save(Vehicule vehicule){
-        Vehicule v = vehiculeRepository.save(vehicule);
-        return vehilculeMapper.toDTO(v);
+        Vehicule saved = vehiculeRepository.save(entity);
+        return vehilculeMapper.toDTO(saved);
     }
 
-    public void delete(long id){
+    public void delete(long id) {
         vehiculeRepository.deleteById(id);
     }
 
-    public List<VehiculeDTO> getAllVehicule(){
-        List<VehiculeDTO> vehicules = vehiculeRepository.findAll().stream().map(vehilculeMapper::toDTO).toList();
-        return vehicules;
+    public VehiculeDTO update(long id, VehiculeDTO vehicule) {
+        Vehicule existing = vehiculeRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Vehicule introuvable"));
+
+        existing.setMatricule(vehicule.getMatricule());
+        existing.setCapacite(vehicule.getCapacite());
+        existing.setStatus(StatutVehicule.valueOf(String.valueOf(vehicule.getStatus())));
+        existing.setType(vehicule.getType());
+
+        Vehicule updated = vehiculeRepository.save(existing);
+        return vehilculeMapper.toDTO(updated);
     }
 
-    public VehiculeDTO update(long id, VehiculeDTO vehicule){
-        Vehicule v = vehiculeRepository.findById(id).orElse(null);
-
-        v.setMatricule(vehicule.getMatricule());
-        v.setCapacite(vehicule.getCapacite());
-        v.setStatus(vehicule.getStatus());
-        v.setType(vehicule.getType());
-
-        Vehicule update = vehiculeRepository.save(v);
-
-        return vehilculeMapper.toDTO(update);
+    public List<VehiculeDTO> findByStatut(StatutVehicule statut) {
+        return vehilculeMapper.todtolist(vehiculeRepository.findByStatus(statut));
     }
 
-    public List<VehiculeDTO> findByStatut(String statut) {
-        return vehilculeMapper.todtolist(vehiculeRepository.findByStatus(statut)) ;
-    }
-    public List<VehiculeDTO> findByCapaciteGreaterThan(int capacite){
+    public List<VehiculeDTO> findByCapaciteGreaterThan(int capacite) {
         return vehilculeMapper.todtolist(vehiculeRepository.findByCapaciteGreaterThan(capacite));
-
     }
+
 }

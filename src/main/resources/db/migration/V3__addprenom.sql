@@ -1,0 +1,1 @@
+ALTER table client add column prenom varchar(30);

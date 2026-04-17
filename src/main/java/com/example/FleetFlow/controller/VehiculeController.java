@@ -1,8 +1,6 @@
 package com.example.FleetFlow.controller;
-
-
-import com.example.FleetFlow.Models.Vehicule;
 import com.example.FleetFlow.dto.VehiculeDTO;
+import com.example.FleetFlow.enums.StatutVehicule;
 import com.example.FleetFlow.service.VehilculeService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,27 +16,23 @@ public class VehiculeController {
     VehilculeService vehilculeService;
 
    @PostMapping
-    public VehiculeDTO save(@Valid @RequestBody Vehicule vehicule){
+    public VehiculeDTO save(@Valid @RequestBody VehiculeDTO vehicule){
        return vehilculeService.save(vehicule);
    }
 
-   @GetMapping
-    public List<VehiculeDTO> getAllVehilcule(){
-       return vehilculeService.getAllVehicule();
-   }
 
    @DeleteMapping("{id}")
-    public void delete(@PathVariable long id){
+    public void delete(@Valid @PathVariable long id){
        vehilculeService.delete(id);
    }
    @PutMapping("{id}")
-    public VehiculeDTO update(@Valid @PathVariable long id,@RequestBody VehiculeDTO vehicule){
+    public VehiculeDTO update(@PathVariable long id, @Valid @RequestBody VehiculeDTO vehicule){
 
        return vehilculeService.update(id, vehicule);
    }
 
    @GetMapping("/status")
-   public List<VehiculeDTO> status(@RequestParam String status){
+   public List<VehiculeDTO> status(@RequestParam StatutVehicule status){
        return vehilculeService.findByStatut(status);
    }
 
