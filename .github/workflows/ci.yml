@@ -38,9 +38,9 @@ jobs:
       - name: Run Tests
         run: mvn test
         env:
-          DB_URL: jdbc:mysql://localhost:3306/fleetflow
-          DB_USERNAME: root
-          DB_PASSWORD: root
+          SPRING_DATASOURCE_URL: jdbc:mysql://localhost:3306/fleetflow
+          SPRING_DATASOURCE_USERNAME: root
+          SPRING_DATASOURCE_PASSWORD: root
 
       - name: Build with Maven
         run: mvn package -DskipTests
