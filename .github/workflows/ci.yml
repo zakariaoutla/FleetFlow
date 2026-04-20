@@ -14,7 +14,7 @@ jobs:
       mysql:
         image: mysql:8.0
         env:
-          MYSQL_ROOT_PASSWORD: root
+          MYSQL_ROOT_PASSWORD: Zakaria@741
           MYSQL_DATABASE: fleetflow
         options: >-
           --health-cmd="mysqladmin ping -h localhost"
@@ -40,7 +40,9 @@ jobs:
         env:
           SPRING_DATASOURCE_URL: jdbc:mysql://localhost:3306/fleetflow
           SPRING_DATASOURCE_USERNAME: root
-          SPRING_DATASOURCE_PASSWORD: root
+          SPRING_DATASOURCE_PASSWORD: Zakaria@741
+          SPRING_JPA_HIBERNATE_DDL_AUTO: update
+          SPRING_FLYWAY_ENABLED: true
 
       - name: Build with Maven
         run: mvn package -DskipTests
