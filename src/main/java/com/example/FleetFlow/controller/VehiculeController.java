@@ -1,5 +1,6 @@
 package com.example.FleetFlow.controller;
 import com.example.FleetFlow.dto.VehiculeDTO;
+import com.example.FleetFlow.enums.StatutVehicule;
 import com.example.FleetFlow.service.VehilculeService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +20,6 @@ public class VehiculeController {
        return vehilculeService.save(vehicule);
    }
 
-//   @GetMapping
-//    public List<VehiculeDTO> getAllVehilcule(){
-//       return vehilculeService.getAllvicule();
-//   }
 
    @DeleteMapping("{id}")
     public void delete(@Valid @PathVariable long id){
@@ -35,7 +32,7 @@ public class VehiculeController {
    }
 
    @GetMapping("/status")
-   public List<VehiculeDTO> status(@RequestParam String status){
+   public List<VehiculeDTO> status(@RequestParam StatutVehicule status){
        return vehilculeService.findByStatut(status);
    }
 

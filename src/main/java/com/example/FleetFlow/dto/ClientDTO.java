@@ -14,15 +14,22 @@ import lombok.Setter;
 public class ClientDTO {
 
 
-
+    private long id;
     @NotBlank(message = "Name is required")
     private String nom;
     @Email
     @NotBlank(message = "Email is required")
     private String email;
     @NotBlank(message = "telephone is required")
-    @Size(min = 10, max = 10, message = "Phone must be 10 digits")
     private String telephone;
     @NotBlank(message = "ville is required")
     private String ville;
+    private String prenom;
+
+    public ClientDTO(String nom, String email, String ville, String telephone) {
+        this.nom = nom;
+        this.email = email;
+        this.ville = ville;
+        this.telephone = telephone;
+    }
 }

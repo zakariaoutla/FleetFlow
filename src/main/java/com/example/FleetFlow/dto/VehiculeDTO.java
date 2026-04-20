@@ -14,6 +14,7 @@ import lombok.Setter;
 @Setter
 
 public class VehiculeDTO {
+    private long id;
     @NotBlank(message = "Le matricule est obligatoire")
     private String matricule;
     @NotBlank(message = "Le type de vehicule est obligatoire")
@@ -21,5 +22,12 @@ public class VehiculeDTO {
     @Positive(message = "La capacite doit etre strictement positive")
     private int capacite;
     @NotBlank(message = "Le status est obligatoire")
-    private String status;
+    private StatutVehicule status;
+
+    public VehiculeDTO(String matricule, String type, int capacite, StatutVehicule status){
+        this.matricule = matricule;
+        this.type = type;
+        this.capacite= capacite;
+        this.status = status;
+    }
 }

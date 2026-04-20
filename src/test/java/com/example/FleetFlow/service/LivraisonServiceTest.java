@@ -17,6 +17,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -46,7 +47,7 @@ public class LivraisonServiceTest {
     void setUp(){
         livraison = new Livraison();
         livraison.setId(1);
-        livraison.setDateLivraison(LocalDateTime.now().plusDays(1));
+        livraison.setDateLivraison(LocalDate.now().plusDays(1));
         livraison.setStatut(EN_COURS);
         livraison.setChauffeur(chauffeur);
         livraison.setVehicule(vehicule);
@@ -67,7 +68,7 @@ public class LivraisonServiceTest {
 
         vehicule = new Vehicule();
         vehicule.setId(1);
-        vehicule.setStatus(StatutVehicule.valueOf("DISPONIBLE"));
+        vehicule.setStatus(StatutVehicule.DISPONIBLE);
         vehicule.setType("Car");
         vehicule.setMatricule("123");
         vehicule.setCapacite(50);
@@ -86,7 +87,7 @@ public class LivraisonServiceTest {
         when(chauffeurRepository.findById(1L)).thenReturn(Optional.of(chauffeur));
         when(vehiculeRepository.findById((long)1)).thenReturn(Optional.of(vehicule));
         when(livraisonRepository.save(any(Livraison.class))).thenReturn(livraison);
-        Livraison reslutat = livraisonService.assigneVehiculeEtChauffeur((int) livraison.getId(), (int) chauffeur.getId(),(int) vehicule.getId());
+        Livraison reslutat = livraisonService.assigneVehiculeEtChauffeur(livraison.getId(), chauffeur.getId() ,(int) vehicule.getId());
 
         assertNotNull(reslutat);
         assertEquals(livraison.getChauffeur() , chauffeur);

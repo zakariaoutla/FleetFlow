@@ -4,6 +4,7 @@ import com.example.FleetFlow.enums.StatutLivraison;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -14,8 +15,9 @@ public class Livraison {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "dateLivraison")
-    private LocalDateTime dateLivraison;
+    @Column(name = "date_livraison")
+    @Temporal(TemporalType.DATE)
+    private LocalDate dateLivraison;
     @Column(name = "adresseDepart")
     private String adresseDepart;
     @Column(name = "adresseDestination")

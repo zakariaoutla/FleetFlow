@@ -25,7 +25,7 @@ public class VehilculeService {
         entity.setMatricule(vehicule.getMatricule());
         entity.setType(vehicule.getType());
         entity.setCapacite(vehicule.getCapacite());
-        entity.setStatus(StatutVehicule.valueOf(vehicule.getStatus()));
+        entity.setStatus(StatutVehicule.valueOf(String.valueOf(vehicule.getStatus())));
 
         Vehicule saved = vehiculeRepository.save(entity);
         return vehilculeMapper.toDTO(saved);
@@ -41,25 +41,19 @@ public class VehilculeService {
 
         existing.setMatricule(vehicule.getMatricule());
         existing.setCapacite(vehicule.getCapacite());
-        existing.setStatus(StatutVehicule.valueOf(vehicule.getStatus()));
+        existing.setStatus(StatutVehicule.valueOf(String.valueOf(vehicule.getStatus())));
         existing.setType(vehicule.getType());
 
         Vehicule updated = vehiculeRepository.save(existing);
         return vehilculeMapper.toDTO(updated);
     }
 
-    public List<VehiculeDTO> findByStatut(String statut) {
-        StatutVehicule parsed = StatutVehicule.valueOf(statut.toUpperCase(Locale.ROOT));
-        return vehilculeMapper.todtolist(vehiculeRepository.findByStatus(parsed));
+    public List<VehiculeDTO> findByStatut(StatutVehicule statut) {
+        return vehilculeMapper.todtolist(vehiculeRepository.findByStatus(statut));
     }
 
     public List<VehiculeDTO> findByCapaciteGreaterThan(int capacite) {
         return vehilculeMapper.todtolist(vehiculeRepository.findByCapaciteGreaterThan(capacite));
     }
 
-//    public List<VehiculeDTO> getAllvicule() {
-//        List<VehiculeDTO> vehicules = vehilculeMapper.todtolist(vehiculeRepository.findAll());
-//        vehicules.forEach(v -> v.setTotalcount(livraisonRepository.countAllByVehicule(v.getId())));
-//        return vehicules;
-//    }
 }

@@ -5,8 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @NoArgsConstructor
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "client")
 @AllArgsConstructor
@@ -18,6 +17,7 @@ public class Client {
     private String email;
     private String telephone;
     private String ville;
+    protected String prenom;
 
     public Client(String nom, String email, String ville, String telephone) {
         this.nom = nom;

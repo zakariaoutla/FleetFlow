@@ -58,7 +58,7 @@ public class LivraisonService {
         return livraisonRepository.save(livraison);
     }
 
-    public Livraison assigneVehiculeEtChauffeur(int idLivraison , int idChauffeur, int idVehicule){
+    public Livraison assigneVehiculeEtChauffeur(long idLivraison , long idChauffeur, int idVehicule){
         Livraison livraison = livraisonRepository.findById((long)idLivraison)
                 .orElseThrow(() -> new RuntimeException("Livraison introuvable"));
         Chauffeur chauffeur = chauffeurRepository.findById((long)idChauffeur)

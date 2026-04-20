@@ -6,6 +6,7 @@ import com.example.FleetFlow.mapper.ClientMapper;
 import com.example.FleetFlow.repository.ClientRepository;
 import com.example.FleetFlow.repository.LivraisonRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,9 +17,13 @@ public class ClientService {
 
     private final ClientRepository clientRepository;
     private final ClientMapper clientMapper;
-    private final LivraisonRepository livraisonRepository;
 
     public ClientDTO save(ClientDTO client) {
+
+        if (clientRepository.findByEmail(client.getEmail()).isPresent()){
+            throw new RuntimeException("email déjà existant ");
+        }
+
         Client entity = new Client(client.getNom(), client.getEmail(), client.getVille(), client.getTelephone());
         Client saved = clientRepository.save(entity);
         return clientMapper.toDTO(saved);
